@@ -148,7 +148,8 @@
 
       setTimeout(() => {
         const today = new Date();
-        let html = `<h2 style='text-align:center; margin-bottom:1rem;'>Meteo per ${city}</h2>`;
+        let html = `<h2 style='text-align:center; margin-bottom:1rem;'>Meteo per ${city} </h2>`;
+         let html = `<h2 style='text-align:center; margin-bottom:1rem;'>ATTENZIONE: Allerta ROSSA a ${city} </h2>`;
 
         for (let i = 0; i < 7; i++) {
           const d = new Date();
