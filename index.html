@@ -2,182 +2,294 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="Icon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Charlie Meteo</title>
 <style>
-  * { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 2.2rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+form {
+  display: flex;
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.15);
+}
+form:hover {
+  background: rgba(255,255,255,0.25);
+}
+input[type="text"] {
+  flex: 1;
+  padding: 0.85rem 1.2rem;
+  border: none;
+  font-size: 1rem;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+}
+input[type="text"]::placeholder {
+  color: #ccc;
+}
+input[type="text"]:focus {
+  outline: none;
+  background: rgba(255,255,255,0.35);
+  color: #222;
+  font-weight: 700;
+}
+button {
+  padding: 0 1.8rem;
+  border: none;
+  background: #6c63ff;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover {
+  background: #5752d1;
+}
+#result {
+  width: 100%;
+  max-width: 480px;
+  flex-grow: 1;
+}
+.day {
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+.day:hover {
+  background: rgba(255,255,255,0.3);
+}
+.day.open {
+  background: rgba(255,255,255,0.45);
+}
+.day .header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.icon {
+  font-size: 2.8rem;
+  flex-shrink: 0;
+}
+.info {
+  flex-grow: 1;
+}
+.date {
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
+.temp {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin-top: 0.15rem;
+}
+.extra {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #dde;
+}
+.hourly {
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.hour-block {
+  background: rgba(255,255,255,0.25);
+  border-radius: 14px;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.hour-block:hover {
+  background: rgba(255,255,255,0.45);
+}
+.hour-block .hour {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.hour-block .icon {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+}
+.hour-block .temp {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+footer {
+  margin-top: auto;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+}
+footer a {
+  color: rgba(255,255,255,0.95);
+  text-decoration: underline;
+}
+.banner {
+  text-align: center;
+  margin: 1rem 0;
+}
+.banner img {
+  width: 350px;
+  height: auto;
+}
+@media (max-width: 480px) {
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 480px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: linear-gradient(135deg, #2a2a72, #009ffd);
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 1rem;
+    padding: 0.5rem;
   }
-  h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    font-size: 2.2rem;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  .icon {
+    font-size: 3.2rem;
   }
-  form {
-    display: flex;
-    width: 100%;
-    max-width: 480px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(255 255 255 / 0.15);
-  }
-  input[type="text"] {
-    flex: 1;
-    padding: 0.8rem 1rem;
-    border: none;
-    font-size: 1rem;
-    background: transparent;
-    color: white;
-  }
-  input[type="text"]::placeholder { color: #ddd; }
-  input[type="text"]:focus {
-    outline: none;
-    background: rgba(255 255 255 / 0.3);
-  }
-  button {
-    padding: 0 1.5rem;
-    border: none;
-    background: #003f88;
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    border-radius: 0;
-  }
-  button:hover { background: #00296b; }
-  #result {
-    width: 100%;
-    max-width: 480px;
-    flex-grow: 1;
-  }
-  .day {
-    background: rgba(255 255 255 / 0.15);
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: background 0.3s ease;
-    cursor: pointer;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .day:hover { background: rgba(255 255 255 / 0.25); }
-  .day.open .extra { display: block; }
-  .day .info { flex-grow: 1; width: 100%; }
-  .day .date { font-weight: 700; font-size: 1.3rem; }
-  .day .temp { font-size: 1.5rem; font-weight: 900; }
-  .day .extra {
-    display: none;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: #dde;
-  }
-  .icon { font-size: 2.5rem; user-select: none; }
-  .hours {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+  .hourly {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 280px;
   }
   .hour-block {
-    background: rgba(255 255 255 / 0.1);
-    padding: 0.3rem;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
-  footer {
-    margin-top: auto;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: rgba(255 255 255 / 0.7);
-    text-align: center;
-    user-select: none;
-  }
-  footer a {
-    color: rgba(255 255 255 / 0.9);
-    text-decoration: underline;
-  }
-  @media (max-width: 480px) {
-    body { margin: 1rem; padding: 0.5rem; }
-    .icon { font-size: 3rem; }
-  }
+}
 </style>
 </head>
 <body>
-  <h1>Charlie Meteo</h1>
-  <form id="searchForm">
-    <input type="text" id="cityInput" placeholder="Scrivi una città (es. Milano)" required />
-    <button type="submit">Cerca</button>
-  </form>
-  <div id="result"></div>
- 
-  <script>
-    const form = document.getElementById('searchForm');
-    const cityInput = document.getElementById('cityInput');
-    const resultDiv = document.getElementById('result');
+<h1>Charlie Meteo</h1>
+<form id="searchForm">
+  <input type="text" id="cityInput" placeholder="Scrivi una città (es. Milano)" required />
+  <button type="submit">Cerca</button>
+</form>
+<!-- Banner visibile e piccolo -->
+<div class="banner">
+  <a href="#"><img src="https://mattehost.netlify.app/img/ad.png" alt="Banner Pubblicitario" /></a>
+</div>
+<div id="result"></div>
+<footer>
+  Alimentato da <a href="https://open-meteo.com" target="_blank">Open‑Meteo</a> e
+  <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a>.<br/>
+  © Charlie Meteo, 2025. Tutti i diritti riservati.
+</footer>
+<script>
+const weatherCodes = {0:"☀️",1:"🌤️",2:"⛅",3:"☁️",45:"🌫️",48:"🌫️",51:"🌦️",53:"🌧️",55:"🌧️",56:"🌧️",57:"🌧️",61:"🌧️",63:"🌧️",65:"🌧️",66:"🌧️",67:"🌧️",71:"❄️",73:"❄️",75:"❄️",77:"❄️",80:"🌧️",81:"🌧️",82:"🌧️",85:"❄️",86:"❄️",95:"⛈️",96:"⛈️",99:"⛈️"};
+const form = document.getElementById('searchForm');
+const cityInput = document.querySelector('#cityInput');
+const resultDiv = document.getElementById('result');
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const city = cityInput.value.trim();
+  if (!city) return;
 
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      const city = cityInput.value.trim();
-      if (!city) return;
+  resultDiv.innerHTML = "<p>Caricamento...</p>";
+  try {
+    const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`);
+    const geoData = await geoRes.json();
+    if (!geoData.length) throw new Error("Città non trovata");
+    const { lat, lon, display_name } = geoData[0];
+    const dailyParams = ["weathercode","temperature_2m_max","temperature_2m_min","precipitation_sum","windspeed_10m_max"].join(",");
+    const hourlyParams = ["temperature_2m","weathercode","precipitation","windspeed_10m","uv_index"].join(",");
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=${dailyParams}&hourly=${hourlyParams}&current_weather=true&timezone=Europe/Rome`;
+    const meteoRes = await fetch(url);
+    const meteoData = await meteoRes.json();
+    const days = meteoData.daily.time.slice(0, 7);
+    const max = meteoData.daily.temperature_2m_max.slice(0, 7);
+    const min = meteoData.daily.temperature_2m_min.slice(0, 7);
+    const precip = meteoData.daily.precipitation_sum.slice(0, 7);
+    const wind = meteoData.daily.windspeed_10m_max.slice(0, 7);
+    const codes = meteoData.daily.weathercode.slice(0, 7);
+    const hourlyTime = meteoData.hourly.time;
+    const hourlyTemp = meteoData.hourly.temperature_2m;
+    const hourlyCode = meteoData.hourly.weathercode;
+    const hourlyPrecip = meteoData.hourly.precipitation;
+    const hourlyWind = meteoData.hourly.windspeed_10m;
+    const hourlyUV = meteoData.hourly.uv_index;
+    const current = meteoData.current_weather;
 
-      resultDiv.innerHTML = "<p>Caricamento...</p>";
-
-      setTimeout(() => {
-        const today = new Date();
-        let html = `<h2 style='text-align:center; margin-bottom:1rem;'>ATTENZIONE: Allerta ROSSA a ${city}</h2>`;
-
-        for (let i = 0; i < 7; i++) {
-          const d = new Date();
-          d.setDate(today.getDate() + i);
-          const label = i === 0 ? `Oggi, ${d.toLocaleDateString('it-IT', {weekday:'long', day:'2-digit', month:'2-digit', year:'2-digit'})}` : d.toLocaleDateString('it-IT', {weekday:'long', day:'2-digit', month:'2-digit'});
-
-          let hoursHTML = '<div class="hours">';
-          for (let h = 0; h < 24; h++) {
-            hoursHTML += `<div class='hour-block'>${h}:00<br>🌩️</div>`;
-          }
-          hoursHTML += '</div>';
-
-          html += `
-            <div class='day' onclick="this.classList.toggle('open')">
-              <div class='icon'>🌩️</div>
-              <div class='info'>
-                <div class='date'>${label}</div>
-                <div class='temp'><strong>Max:</strong> 11°C, <strong>Min:</strong> 8°C</div>
-                <div class='extra'>
-                  ${hoursHTML}
-                  <div><strong>Pioggia:</strong> 35mm</div>
-                  <div><strong>Vento:</strong> 70 km/h (raffiche 90 km/h)</div>
-                  <div><strong>Indice UV:</strong> 1</div>
-                </div>
-              </div>
+    let html = `<h2 style='text-align:center; margin-bottom:1rem;'>Meteo per ${display_name}</h2>`;
+    days.forEach((d, i) => {
+      const date = new Date(d);
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const isToday = (date.getTime() === today.getTime());
+      const label = isToday
+        ? `Oggi, ${date.toLocaleDateString('it-IT', {weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'})}`
+        : date.toLocaleDateString('it-IT', {weekday:'long',day:'2-digit',month:'2-digit'});
+      const hoursIndices = hourlyTime.map((t, idx) => {
+        const td = new Date(t);
+        return (td.getFullYear() === date.getFullYear() && td.getMonth() === date.getMonth() && td.getDate() === date.getDate()) ? idx : null;
+      }).filter(idx => idx !== null);
+      const currentWeatherHtml = isToday ? `
+        <div class="extra"><strong>Meteo ora:</strong> ${weatherCodes[current.weathercode] || '❓'}, ${current.temperature}°C, vento ${current.windspeed} km/h</div>
+      ` : '';
+      html += `
+        <div class="day" data-day-index="${i}">
+          <div class="header">
+            <div class="icon">${weatherCodes[codes[i]] || '❓'}</div>
+            <div class="info">
+              <div class="date">${label}</div>
+              <div class="temp"><strong>Max:</strong> ${max[i]}°C, <strong>Min:</strong> ${min[i]}°C</div>
+              <div class="extra"><strong>Pioggia:</strong> ${precip[i]}mm, <strong>Vento:</strong> ${wind[i]}km/h</div>
+              ${currentWeatherHtml}
             </div>
-          `;
-        }
-
-        resultDiv.innerHTML = html;
-      }, 1000);
+          </div>
+          <div class="hourly" style="display:none;">
+            ${hoursIndices.map(hIndex => {
+              const hourDate = new Date(hourlyTime[hIndex]);
+              const hourLabel = hourDate.getHours().toString().padStart(2, '0') + ":00";
+              return `
+                <div class="hour-block" title="Temp: ${hourlyTemp[hIndex]}°C\nPioggia: ${hourlyPrecip[hIndex]}mm\nVento: ${hourlyWind[hIndex]} km/h\nUV: ${hourlyUV[hIndex]}">
+                  <div class="hour">${hourLabel}</div>
+                  <div class="icon">${weatherCodes[hourlyCode[hIndex]] || '❓'}</div>
+                  <div class="temp">${hourlyTemp[hIndex]}°</div>
+                  <div>🌧️${hourlyPrecip[hIndex]}</div>
+                  <div>🌬️${hourlyWind[hIndex]}</div>
+                  <div>☀️${hourlyUV[hIndex]}</div>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>`;
     });
-  </script>
+    resultDiv.innerHTML = html;
+
+    document.querySelectorAll('.day').forEach(dayEl => {
+      dayEl.addEventListener('click', () => {
+        const isOpen = dayEl.classList.toggle('open');
+        const hourlyDiv = dayEl.querySelector('.hourly');
+        if (hourlyDiv) hourlyDiv.style.display = isOpen ? 'grid' : 'none';
+      });
+    });
+  } catch (err) {
+    resultDiv.innerHTML = `<p style='color:#f88;'>Errore: ${err.message}</p>`;
+  }
+});
+</script>
 </body>
 </html>
